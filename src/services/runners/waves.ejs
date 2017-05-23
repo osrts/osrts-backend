@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { zoom : 0.5; }
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size:14pt;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    line-height: 20px;
+padding: 2px;
+}
+.page-break{
+      page-break-after:always;
+      page-break-inside:avoid;
+      margin-top: 300mm; /*phantomjs renders it on the top of the next page*/
+    }
+    .date{
+      font-size: 24px;
+      font-weight: bold;
+    }
+    @media print {
+   thead {display: table-header-group;}
+}
+    thead {display: table-header-group;}
+</style>
+</head>
+<body>
+<% Object.keys(runners).forEach(function(date) { %>
+
+  <% Object.keys(runners[date]).forEach(function(wave_id) { %>
+  <span class="date">Date : <%= date %> <br />Vague : <%= wave_id %> <br /></span>
+    <table>
+    <thead>
+      <tr>
+        <th style="width:20px">Vague</th>
+        <th style="width:80px">Type</th>
+        <th style="width:580px">Team</th>
+        <th >Nom</th>
+        <th style="width:120px">Tag</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Object.keys(runners[date][wave_id]).forEach(function(runner_id) { %>
+        <tr>
+          <td>
+            <%= runners[date][wave_id][runner_id].wave_id %>
+          </td>
+          <td>
+            <%= runners[date][wave_id][runner_id].type %>
+          </td>
+          <td>
+            <%= runners[date][wave_id][runner_id].team_name %>
+          </td>
+          <td>
+            <%= runners[date][wave_id][runner_id].name %>
+          </td>
+          <td>
+          <%if (runners[date][wave_id][runner_id].tag) { %>
+            <%= runners[date][wave_id][runner_id].tag.color%> - <%= runners[date][wave_id][runner_id].tag.num%>
+          <% } %>
+
+          </td>
+        </tr>
+      <% });  %>
+      </tbody>
+    </table>
+    <div class="page-break"></div>
+    <% });  %>
+  <% });  %>
+</body>
+</html>
