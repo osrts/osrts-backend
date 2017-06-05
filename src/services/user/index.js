@@ -1,3 +1,8 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 'use strict';
 
 const service = require('feathers-mongoose');
@@ -28,5 +33,19 @@ module.exports = function() {
 
   // Set up our after hooks
   userService.after(hooks.after);
+
+// Creates an administrator
+userService.find({query: {email: 'test@test.test'}}).then(data=>{
+   if(data.total===0){
+     userService.create({
+       email: 'test@test.test',
+       password: 'test'
+     }).then(function(user) {
+       console.log("Created an administrator | email='test@test.test' - password='test'");
+     }).catch(error=>{
+       console.log(error);
+     });
+   }
+ });
 
 };

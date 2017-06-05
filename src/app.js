@@ -1,3 +1,8 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const feathers = require('feathers');
 const serveStatic = require('feathers').static;
 const compress = require('compression');

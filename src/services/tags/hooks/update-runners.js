@@ -1,6 +1,12 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 
-const updateRunnersHook = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that updates the runners when deleting tags. They should not have a tag assigned anymore (tag_id = -1)
+const updateRunnersHook = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       const runnersService = hook.app.service('/runners');

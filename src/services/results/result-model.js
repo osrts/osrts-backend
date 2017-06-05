@@ -1,3 +1,8 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 'use strict';
 
 // result-model.js - A mongoose model

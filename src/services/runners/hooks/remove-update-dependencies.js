@@ -1,10 +1,18 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 
 const moment = require('moment');
 require('moment/locale/fr');
 moment.locale('fr');
 
-const updateDependencies = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that updates the dependencies when deleting a runners
+// Remove one from the count of persons for its wave and its day
+// Set the tag as unassigned
+const updateDependencies = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       const tagsService = hook.app.service('/tags');

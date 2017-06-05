@@ -1,3 +1,8 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 'use strict';
 
 // checkpoint-model.js - A mongoose model

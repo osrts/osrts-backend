@@ -1,6 +1,13 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 
-const checkAndUpdateTagHook = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that checks if the tag exists and if it is not assigned to a runner
+// Then also updates the tag to set it as "assigned=true"
+const checkAndUpdateTagHook = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       const runnersService = hook.app.service('/runners');

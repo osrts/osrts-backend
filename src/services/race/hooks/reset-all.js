@@ -1,8 +1,13 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 const cache = require('memory-cache');
 
-
-const resetAll = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that deletes all the old data when creating a new race
+const resetAll = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       // Services

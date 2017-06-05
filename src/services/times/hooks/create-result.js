@@ -1,3 +1,8 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 var moment = require('moment');
 var momentfr = require('moment/locale/fr');
@@ -5,7 +10,9 @@ var errors = require('feathers-errors');
 moment.locale('fr');
 const FORMAT_TIMESTAMP = "HH:mm:ss.SSSZZ";
 
-const createResult = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that creates the result if the checkpoint_id is the finish line (=99)
+// Otherwise it updates the result if it exists
+const createResult = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       // Services

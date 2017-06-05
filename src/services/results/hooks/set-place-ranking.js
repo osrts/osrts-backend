@@ -1,8 +1,13 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 var moment = require('moment');
 var momentfr = require('moment/locale/fr');
 moment.locale('fr');
 
-const setPlaceRanking = options => { // always wrap in a function so you can pass options and for consistency.
+const setPlaceRanking = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       // Variables

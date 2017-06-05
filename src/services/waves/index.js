@@ -1,3 +1,8 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 'use strict';
 
 const service = require('feathers-mongoose');
@@ -21,15 +26,6 @@ module.exports = function() {
 
   // Get our initialize service to that we can bind hooks
   const wavesService = app.service('/waves');
-
-  /*app.service('results').create({
-    name: "test",
-    team_name: "test",
-    path: 1,
-    time: "Not a time but don't care"
-  }).then(function(result) {
-    console.log('Created result', result);
-  });*/
 
   // Set up our before hooks
   wavesService.before(hooks.before);

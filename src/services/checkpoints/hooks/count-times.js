@@ -1,7 +1,13 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 var moment = require('moment');
 
-const countTimes = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that counts the number of runners that have passed by a checkpoint
+const countTimes = options => {
     return hook => {
         return new Promise((resolve, reject) => {
             // Services

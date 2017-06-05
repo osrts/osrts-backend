@@ -1,6 +1,12 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 
-const checkWaveHook = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that checks that the wave indeed exists
+const checkWaveHook = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       const runnersService = hook.app.service('/runners');

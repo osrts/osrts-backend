@@ -1,5 +1,10 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
 
-const checkOnlyOneExists = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that checks that there are only one race maximum at all time in the system
+const checkOnlyOneExists = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       // Services

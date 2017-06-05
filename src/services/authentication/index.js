@@ -1,9 +1,13 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 'use strict';
 
 const authentication = require('feathers-authentication');
 const local = require('feathers-authentication-local');
 const jwt = require('feathers-authentication-jwt');
-const preventBruteForce = require('./prevent-brute-force');
 
 module.exports = function() {
   const app = this;

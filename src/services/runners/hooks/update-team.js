@@ -1,7 +1,14 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 const Q = require('q');
 
 
-const updateTeamHook = options => { // always wrap in a function so you can pass options and for consistency.
+// Hook that updates the rest of the team when modifying the team name, the wave type or the wave num
+// Indeed, if a typo is corrected, the rest of the team should also have the typo corrected
+const updateTeamHook = options => {
   return hook => {
     return new Promise((resolve, reject) => {
       const runnersService = hook.app.service('/runners');

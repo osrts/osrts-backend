@@ -1,4 +1,11 @@
-const computeSpeed = options => { // always wrap in a function so you can pass options and for consistency.
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
+
+// Hook that computes the speed of the runner when creating the result
+const computeSpeed = options => {
   return hook => {
     return new Promise((resolve, reject) => {
         var newResult = hook.data;

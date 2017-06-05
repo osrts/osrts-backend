@@ -1,14 +1,19 @@
+/**
+ * @summary Race timing system
+ * @author Guillaume Deconinck & Wojciech Grynczel
+*/
+
 'use strict';
 
-const PDFDocument = require('pdfkit');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 var ejs = require('ejs');
 var phantom = require('phantom');
+const path = require('path');
 const moment = require('moment');
 require('moment/locale/fr');
 moment.locale('fr');
-const path = require('path');
+
 const PRO_WAVE_NAME = 'compet';
 
 module.exports = function() {
