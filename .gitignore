@@ -3,9 +3,7 @@ node_modules
 *.log
 *.pdf
 public/
-config/default.json
-config/production.json
-a-small-participants.xlsx 
-participants.xlsx 
-participants_listing2017.xlsx 
-test-data.xlsx 
+a-small-participants.xlsx
+participants.xlsx
+participants_listing2017.xlsx
+test-data.xlsx

@@ -5,7 +5,7 @@
   "public": "../public/",
   "auth": {
     "token": {
-      "secret": "a secret"
+      "secret": "A secret"
     },
     "local": {}
   }

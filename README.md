@@ -9,7 +9,7 @@ First, you need Node.js and MongoDB installed on your machine.
 ## Dependencies
 
 ### Node.js
-For installing Node.js, go to the [Node.js download page](https://nodejs.org/en/download/) and get the installer for your platform. Simply follow the instructions of the installer and it should be successfully installed.
+For installing Node.js, go to the [Node.js download page](https://nodejs.org/en/download/) and get the installer for your platform. Note that we use the LTS version which is the most stable (v6.11.0 when writing this documentation). Simply follow the instructions of the installer and it should be successfully installed.
 
 To check if it is correctly installed, open a terminal window and launch the following command:
 
@@ -40,6 +40,18 @@ To launch the server of the race timing system, use the following command:
 $ npm start
 ```
 You should see an output saying that the Feathers application has started on [localhost:3030](http://localhost:3030).
+
+# Structure
+
+- **config/** : contains the configuration files (development.json and production.json)
+- **src/**
+    - **hooks/** : contains the global hooks
+    - **services/** : contains all the services and their hooks
+    - **app.js** : initializes the application 
+    - **index.js** : entry point of the application
+- **test/**
+    - **services/** : tests on all the services
+    - **app.test.js** : entry point for all the tests
 
 # Tests
 
