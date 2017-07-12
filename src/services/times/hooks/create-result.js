@@ -63,7 +63,7 @@ const createResult = options => {
             // When all data has been retrieved
             Q.allSettled(promisesArray).then(results=>{
               var newResult = {name: runner.name, tag: {num: runner.tag.num, color: runner.tag.color}, team_name: runner.team_name,
-                date: runner.date, start_time: wave['start_time'], times: {}, checkpoints_ids: []};
+                gender: runner.gender, date: runner.date, start_time: wave['start_time'], times: {}, checkpoints_ids: []};
               // We compute the time taken
               var momentWaveStartTime = moment(wave['start_time'], FORMAT_TIMESTAMP);
               times.forEach(time=>{

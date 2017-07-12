@@ -15,6 +15,7 @@ const Schema = mongoose.Schema;
 
 const resultSchema = new Schema({
   name: { type: String, required: true },
+  gender: {type: String, required: true},
   tag: {type: Schema.Types.Mixed, required: true},
   team_name: { type: String},
   date: { type: String, required: true},
