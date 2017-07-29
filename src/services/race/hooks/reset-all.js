@@ -4,7 +4,6 @@
 */
 
 const Q = require('q');
-const cache = require('memory-cache');
 
 // Hook that deletes all the old data when creating a new race
 const resetAll = options => {

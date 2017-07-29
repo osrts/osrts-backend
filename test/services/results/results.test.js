@@ -238,7 +238,7 @@ describe('results service', () => {
         const correctWave = {num: 1, type: "compet", date: "15-04-2017", start_time: new Date("2017-04-15T13:15:00+00:00")};
         const correctTime1 = {checkpoint_id: 99, tag: {num: 1, color: "bleu"}, timestamp: new Date("2017-04-15T14:15:00+00:00")};
         const correctRunner1 = {name: "Runner1", team_id: 999, team_name: "Team 1", tag: {num: 1, color: "bleu"},
-                               type: "compet", wave_id: 1, date: "15-04-2017"};
+                               type: "compet", wave_id: 1, date: "15-04-2017", gender: "M"};
 
         const correctTagsRange = {from: 1, to: 10, color: "bleu"};
 
@@ -289,7 +289,7 @@ describe('results service', () => {
 
         const correctTime2 = {checkpoint_id: 99, tag: {num: 2, color: "bleu"}, timestamp: new Date("2017-04-15T14:45:00+00:00")};
         const correctRunner2 = {name: "Runner2", team_id: 999, team_name: "Team 1", tag: {num: 2, color: "bleu"},
-                                type: "compet", wave_id: 1, date: "15-04-2017"};
+                                type: "compet", wave_id: 1, date: "15-04-2017", gender:"M"};
 
         it('should create a result with number n°2', (done)=>{
           Tags.patch(tags[1]._id, {assigned: true}).then(()=>{
@@ -316,7 +316,7 @@ describe('results service', () => {
 
         const correctTime3 = {checkpoint_id: 99, tag: {num: 3, color: "bleu"}, timestamp: new Date("2017-04-15T14:30:00+00:00")};
         const correctRunner3 = {name: "Runner3", team_id: 999, team_name: "Team 1", tag: {num: 3, color: "bleu"},
-                                type: "compet", wave_id: 1, date: "15-04-2017"};
+                                type: "compet", wave_id: 1, date: "15-04-2017", gender: "M"};
 
         it('should create a result with number n°2 and patch the old n°2 to n°3', (done)=>{
           Tags.patch(tags[2]._id, {assigned: true}).then(()=>{

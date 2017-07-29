@@ -17,8 +17,8 @@ chai.use(chaiHttp);
 // Constants
 const URL = "http://"+app.settings.host+":"+app.settings.port;
 const defaultRunners = [
-  {name: "Runner1", team_id: 999, team_name: "Team 1", type: "fun", wave_id: 9, date: "15-04-2017"},
-  {name: "Runner2", team_id: 999, team_name: "Team 1", type: "fun", wave_id: 9, date: "15-04-2017"}
+  {name: "Runner1", team_id: 999, team_name: "Team 1", type: "fun", wave_id: 9, date: "15-04-2017", gender: "M"},
+  {name: "Runner2", team_id: 999, team_name: "Team 1", type: "fun", wave_id: 9, date: "15-04-2017", gender: "M"}
 ];
 
 describe('runners service', () => {
@@ -360,7 +360,7 @@ describe('runners service', () => {
         const Waves = app.service('waves');
 
         const defaultWaves = [{num: 1, type: "compet", date: "15-04-2017"}, {num: 2, type: "fun", date: "15-04-2017"}];
-        const correctRunner = {name: "Runner1", team_id: 999, team_name: "Team 1", type: "compet", wave_id: 1, date: "15-04-2017"};
+        const correctRunner = {name: "Runner1", team_id: 999, team_name: "Team 1", type: "compet", wave_id: 1, date: "15-04-2017", gender: "M"};
 
         var runner;
 
@@ -457,7 +457,7 @@ describe('runners service', () => {
         const Race = app.service('race');
 
         const defaultWave = {num: 1, type: "compet", date: "15-04-2017", count: 1};
-        const correctRunner = {name: "Runner1", team_id: 999, team_name: "Team 1", type: "compet", wave_id: 1, date: "15-04-2017"};
+        const correctRunner = {name: "Runner1", team_id: 999, team_name: "Team 1", type: "compet", wave_id: 1, date: "15-04-2017", gender: "M"};
 
         var wave;
         var runner;

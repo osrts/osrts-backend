@@ -35,7 +35,7 @@ module.exports = function() {
   userService.after(hooks.after);
 
 // Creates an administrator
-userService.find({query: {email: 'test@test.test'}}).then(data=>{
+userService.find({}).then(data=>{
    if(data.total===0){
      userService.create({
        email: 'test@test.test',
