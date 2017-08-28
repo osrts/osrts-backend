@@ -40,8 +40,11 @@ const checkTime = options => {
         } else {
           delete hook.data.email;
           delete hook.data.password;
+          console.log(hook.data.timestamp);
           var momentTimestamp = moment(hook.data.timestamp);
+          console.log(momentTimestamp);
           hook.data.timestamp = momentTimestamp.toDate();
+          console.log(hook.data.timestamp);
           resolve();
         }
     }).catch((err)=>{
