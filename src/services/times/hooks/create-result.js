@@ -28,7 +28,7 @@ const createResult = options => {
       resultsService.find({query: {"tag.num": timeAtCheckpoint.tag.num, "tag.color": timeAtCheckpoint.tag.color}}).then(data=>{
         // If there is no result already
         if(data.total==0){
-          if(timeAtCheckpoint.checkpoint_id==99){
+          if(timeAtCheckpoint.checkpoint_id==1){
             var promisesArray = [];
             var deferredWaves = Q.defer(); // A defer because we need the promise to be already in the array
             // We search for the runner that has that tag
