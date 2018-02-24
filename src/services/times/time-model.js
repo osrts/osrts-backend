@@ -14,9 +14,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const timeSchema = new Schema({
-  checkpoint_id: {type: Number, required: true},
-  tag: {type: Schema.Types.Mixed, required: true},
-  timestamp: { type: Date, required: true}
+  checkpoint_id: { type: Number, required: true },
+  tag: { type: Schema.Types.Mixed, required: true },
+  timestamp: { type: Date, required: true }
 });
 
 const timeModel = mongoose.model('times', timeSchema);

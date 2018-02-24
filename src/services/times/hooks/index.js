@@ -12,9 +12,9 @@ const createResult = require('./create-result');
 
 exports.before = {
   all: [auth.hooks.authenticate(['jwt', 'local'])],
-  find: [globalHooks.searchRegex()],
+  find: [globalHooks.searchRegex],
   get: [],
-  create: [checkTime()],
+  create: [checkTime],
   update: [],
   patch: [],
   remove: []
@@ -24,7 +24,7 @@ exports.after = {
   all: [],
   find: [],
   get: [],
-  create: [createResult()],
+  create: [createResult],
   update: [],
   patch: [],
   remove: []

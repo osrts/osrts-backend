@@ -19,7 +19,7 @@ exports.before = {
   create: [auth.hooks.authenticate(['jwt', 'local']), local.hooks.hashPassword()],
   update: [hooks.disallow('external')],
   patch: [auth.hooks.authenticate(['jwt', 'local']), local.hooks.hashPassword()],
-  remove: [auth.hooks.authenticate(['jwt', 'local']), iff(isProvider('external'), atLeastOneAdmin())]
+  remove: [auth.hooks.authenticate(['jwt', 'local']), iff(isProvider('external'), atLeastOneAdmin)],
 };
 exports.after = {
   all: [local.hooks.protect('password')],

@@ -28,40 +28,40 @@ const app = express(feathers());
 app.configure(configuration(path.join(__dirname, '..')));
 
 app.use(compress())
-    .options('*', cors())
-    .use(cors())
-    // Needed for parsing bodies (login)
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({
-        extended: true
-    }))
-    // Parts
-    .configure(rest())
-    .configure(socketio({wsEngine: 'uws'}))
-    // Configure the services
-    .configure(services)
-    .configure(channels)
-    .use(express.errorHandler())
-    .use('/', express.static( app.get('public')));
+  .options('*', cors())
+  .use(cors())
+  // Needed for parsing bodies (login)
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({
+    extended: true
+  }))
+  // Parts
+  .configure(rest())
+  .configure(socketio({ wsEngine: 'uws' }))
+  // Configure the services
+  .configure(services)
+  .configure(channels)
+  .use(express.errorHandler())
+  .use('/', express.static(app.get('public')));
 
 // Chekpoint online status check
 const checkpointsService = app.service('/checkpoints');
-var interval = setInterval(function() {
-    checkpointsService.find({
-        query: {
-            online: true
-        }
-    }).then((checkpointsRetrieved) => {
-        checkpointsRetrieved.data.forEach((checkpoint) => {
-            if (moment().diff(checkpoint.last_connection * 1000) > 5000) {
-                checkpointsService.patch(checkpoint._id, {
-                    $set: {
-                        online: false
-                    }
-                });
-            }
+var interval = setInterval(function () {
+  checkpointsService.find({
+    query: {
+      online: true
+    }
+  }).then((checkpointsRetrieved) => {
+    checkpointsRetrieved.data.forEach((checkpoint) => {
+      if (moment().diff(checkpoint.last_connection * 1000) > 5000) {
+        checkpointsService.patch(checkpoint._id, {
+          $set: {
+            online: false
+          }
         });
+      }
     });
+  });
 }, 5000);
 
 module.exports = app;

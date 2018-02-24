@@ -15,15 +15,15 @@ const updateDependencies = require('./remove-update-dependencies');
 
 exports.before = {
   all: [auth.hooks.authenticate(['jwt','local'])],
-  find: [globalHooks.searchRegex()],
+  find: [globalHooks.searchRegex],
   get: [],
   create: [],
-  update: [iff(isProvider('external'), checkAndUpdateTag()),
-           iff(isProvider('external'), checkWave()),
-           iff(isProvider('external'), updateTeam())],
-  patch: [iff(isProvider('external'), checkAndUpdateTag()),
-          iff(isProvider('external'), checkWave()),
-          iff(isProvider('external'), updateTeam())],
+  update: [iff(isProvider('external'), checkAndUpdateTag),
+           iff(isProvider('external'), checkWave),
+           iff(isProvider('external'), updateTeam)],
+  patch: [iff(isProvider('external'), checkAndUpdateTag),
+          iff(isProvider('external'), checkWave),
+          iff(isProvider('external'), updateTeam)],
   remove: []
 };
 
@@ -34,5 +34,5 @@ exports.after = {
   create: [],
   update: [],
   patch: [],
-  remove: iff(isProvider('external'), updateDependencies())
+  remove: iff(isProvider('external'), updateDependencies)
 };

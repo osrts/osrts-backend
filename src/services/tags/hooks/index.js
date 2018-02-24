@@ -16,7 +16,7 @@ exports.before = {
   create: [],
   update: [],
   patch: [],
-  remove: [updateRunners()]
+  remove: [updateRunners]
 };
 
 exports.after = {

@@ -9,12 +9,12 @@
 // The tag must exist and be assigned to a runner
 const checkAtLeastOneAdmin = context => {
   return new Promise((resolve, reject) => {
-    const usersService = context.app.service('/users');
+    const usersService = context.service;
     usersService.find({}).then(users=>{
       if(users.total==1)
         reject();
       else
-        resolve();
+        resolve(context);
     });
   });
 };

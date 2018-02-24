@@ -16,7 +16,7 @@ exports.before = {
   find: [],
   get: [hooks.disallow()],
   update: [auth.hooks.authenticate(['jwt', 'local'])],
-  create: [auth.hooks.authenticate(['jwt', 'local']), checkOnlyOneExists()],
+  create: [auth.hooks.authenticate(['jwt', 'local']), checkOnlyOneExists],
   patch: [auth.hooks.authenticate(['jwt', 'local'])],
   remove: [hooks.disallow()]
 };
@@ -26,7 +26,7 @@ exports.after = {
   find: [],
   get: [],
   create: [],
-  update: [resetAll()],
+  update: [resetAll],
   patch: [],
   remove: []
 };

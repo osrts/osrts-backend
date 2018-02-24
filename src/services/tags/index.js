@@ -10,7 +10,7 @@ const tag = require('./tag-model');
 const race = require('../race/race-model');
 const hooks = require('./hooks');
 
-module.exports = function() {
+module.exports = function () {
   const app = this;
 
   const options = {
@@ -23,22 +23,22 @@ module.exports = function() {
   };
 
   class CustomServiceForTags extends Service {
-    create(data, params){
-      if(data && data.from && data.color){
-        if(data.to && data.to>0 && data.to>data.from){
+    create(data, params) {
+      if (data && data.from && data.color) {
+        if (data.to && data.to > 0 && data.to > data.from) {
           var tagsArray = [];
-          for(var i = data.from ; i<=data.to ; i++){
-            tagsArray.push({num: i, color: data.color});
+          for (var i = data.from; i <= data.to; i++) {
+            tagsArray.push({ num: i, color: data.color });
           }
-          race.update(null, {$addToSet: {tagsColor: data.color}}).exec();
-          return tag.create(tagsArray).then((data)=>{
-            data.forEach((tag)=>{
+          race.update(null, { $addToSet: { tagsColor: data.color } }).exec();
+          return tag.create(tagsArray).then((data) => {
+            data.forEach((tag) => {
               this.emit('created', tag);
             });
             return data;
           });
         } else {
-          return tag.create({num: data.from, color: data.color}).then((tag)=>{
+          return tag.create({ num: data.from, color: data.color }).then((tag) => {
             this.emit('created', tag);
             return tag;
           });

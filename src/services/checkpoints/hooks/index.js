@@ -21,10 +21,10 @@ exports.before = {
 
 exports.after = {
   all: [],
-  find: [countTimes()],
+  find: [countTimes],
   get: [],
   create: [],
   update: [],
-  patch: [countTimes()],
+  patch: [countTimes],
   remove: []
 };
