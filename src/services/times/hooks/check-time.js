@@ -7,7 +7,7 @@ const Q = require('q');
 var moment = require('moment');
 var momentfr = require('moment/locale/fr');
 moment.locale('fr');
-var errors = require('feathers-errors');
+var errors = require('@feathersjs/errors');
 
 // Hooks that check that the time uploaded is valid
 // It must have a timestamp and a checkpoint_id

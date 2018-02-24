@@ -37,8 +37,5 @@ module.exports = function() {
   });*/
 
   // Set up our before hooks
-  timesService.before(hooks.before);
-
-  // Set up our after hooks
-  timesService.after(hooks.after);
+  timesService.hooks(hooks);
 };

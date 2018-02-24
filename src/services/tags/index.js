@@ -54,8 +54,5 @@ module.exports = function() {
   const tagsService = app.service('/tags');
 
   // Set up our before hooks
-  tagsService.before(hooks.before);
-
-  // Set up our after hooks
-  tagsService.after(hooks.after);
+  tagsService.hooks(hooks);
 };

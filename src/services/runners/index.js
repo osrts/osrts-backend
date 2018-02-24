@@ -28,8 +28,5 @@ module.exports = function() {
   const runnersService = app.service('/runners');
 
   // Set up our before hooks
-  runnersService.before(hooks.before);
-
-  // Set up our after hooks
-  runnersService.after(hooks.after);
+  runnersService.hooks(hooks);
 };

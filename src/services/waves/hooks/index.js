@@ -6,8 +6,7 @@
 'use strict';
 
 const globalHooks = require('../../../hooks');
-const hooks = require('feathers-hooks');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 
 exports.before = {
   all: [auth.hooks.authenticate(['jwt', 'local'])],

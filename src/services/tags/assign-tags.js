@@ -6,7 +6,7 @@
 'use strict';
 
 const Q = require('q');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 
 const moment = require('moment');
 require('moment/locale/fr');
@@ -101,8 +101,10 @@ module.exports = function() {
   // Initialize excel-parser service
   app.use('/tags-assigner', new TagsAssigner());
 
-  app.service('/tags-assigner').before({
-    all: [auth.hooks.authenticate('local')]
+  app.service('/tags-assigner').hooks({
+    before: {
+      all: [auth.hooks.authenticate('local')],
+    }
   });
 
 };

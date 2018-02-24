@@ -6,7 +6,7 @@
 'use strict';
 
 const Q = require('q');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 var csv = require("fast-csv");
 
 module.exports = function() {
@@ -88,7 +88,9 @@ module.exports = function() {
     // Initialize excel-parser service
     app.use('/times-parser', new TimesParser());
 
-    app.service('/times-parser').before({
-        all: [auth.hooks.authenticate('local')]
+    app.service('/times-parser').hooks({
+        before: {
+            all: [auth.hooks.authenticate('local')],
+        },
     });
 };

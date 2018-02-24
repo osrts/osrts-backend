@@ -7,7 +7,7 @@
 
 const XLSX = require('xlsx');
 const Q = require('q');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 
 const moment = require('moment');
 require('moment/locale/fr');
@@ -196,8 +196,10 @@ module.exports = function() {
   // Initialize excel-parser service
   app.use('/excel-parser', new ExcelParser());
 
-  app.service('/excel-parser').before({
-    all: [auth.hooks.authenticate(['jwt', 'local'])]
+  app.service('/excel-parser').hooks({
+    before: {
+      all: [auth.hooks.authenticate(['jwt', 'local'])],
+    }
   });
 
 };

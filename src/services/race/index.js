@@ -37,8 +37,5 @@ module.exports = function() {
   });*/
 
   // Set up our before hooks
-  raceService.before(hooks.before);
-
-  // Set up our after hooks
-  raceService.after(hooks.after);
+  raceService.hooks(hooks);
 };

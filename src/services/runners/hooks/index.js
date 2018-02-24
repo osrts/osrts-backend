@@ -6,9 +6,8 @@
 'use strict';
 
 const globalHooks = require('../../../hooks');
-const hooks = require('feathers-hooks');
 const {iff, isProvider} = require('feathers-hooks-common');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 const checkAndUpdateTag = require('./check-update-tag');
 const checkWave = require('./check-wave');
 const updateTeam = require('./update-team');

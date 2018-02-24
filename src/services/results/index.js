@@ -28,8 +28,5 @@ module.exports = function() {
   const resultsService = app.service('/results');
 
   // Set up our before hooks
-  resultsService.before(hooks.before);
-
-  // Set up our after hooks
-  resultsService.after(hooks.after);
+  resultsService.hooks(hooks);
 };

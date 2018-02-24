@@ -29,23 +29,20 @@ module.exports = function() {
   const userService = app.service('/users');
 
   // Set up our before hooks
-  userService.before(hooks.before);
+  userService.hooks(hooks);
 
-  // Set up our after hooks
-  userService.after(hooks.after);
-
-// Creates an administrator
-userService.find({}).then(data=>{
-   if(data.total===0){
-     userService.create({
-       email: 'test@test.test',
-       password: 'test'
-     }).then(function(user) {
-       console.log("Created an administrator | email='test@test.test' - password='test'");
-     }).catch(error=>{
-       console.log(error);
-     });
-   }
- });
+  // Creates an administrator
+  userService.find({}).then(data=>{
+    if(data.total===0){
+      userService.create({
+        email: 'test@test.test',
+        password: 'test'
+      }).then(function(user) {
+        console.log("Created an administrator | email='test@test.test' - password='test'");
+      }).catch(error=>{
+        console.log(error);
+      });
+    }
+  });
 
 };

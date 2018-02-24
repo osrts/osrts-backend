@@ -3,27 +3,26 @@
  * @author Guillaume Deconinck & Wojciech Grynczel
 */
 
-const feathers = require('feathers');
-const serveStatic = require('feathers').static;
+const feathers = require('@feathersjs/feathers');
+const express = require('@feathersjs/express');
 const compress = require('compression');
-const rest = require('feathers-rest');
-const hooks = require('feathers-hooks');
-const configuration = require('feathers-configuration');
+const rest = require('@feathersjs/express/rest');
+const configuration = require('@feathersjs/configuration');
 const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const errorHandler = require('feathers-errors/handler');
-const socketio = require('feathers-socketio');
+const socketio = require('@feathersjs/socketio');
 const middleware = require('feathers-permissions').middleware;
-const auth = require('feathers-authentication');
-const local = require('feathers-authentication-local');
+const auth = require('@feathersjs/authentication');
+const local = require('@feathersjs/authentication-local');
+const channels = require('./channels');
 var moment = require('moment');
 
 // Get the services
 const services = require('./services');
 
 // Initialize the application
-const app = feathers();
+const app = express(feathers());
 
 // Load the /config/default.json, use with app.get("nameOfProperty")
 app.configure(configuration(path.join(__dirname, '..')));
@@ -38,13 +37,12 @@ app.use(compress())
     }))
     // Parts
     .configure(rest())
-    .configure(hooks())
     .configure(socketio({wsEngine: 'uws'}))
     // Configure the services
     .configure(services)
-    .use(errorHandler())
-    .use('/', serveStatic( app.get('public') ))
-    .set('view engine', 'ejs');
+    .configure(channels)
+    .use(express.errorHandler())
+    .use('/', express.static( app.get('public')));
 
 // Chekpoint online status check
 const checkpointsService = app.service('/checkpoints');

@@ -7,7 +7,7 @@
 
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks-common');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 const setPlaceRanking = require('./set-place-ranking');
 const computeSpeed = require('./compute-speed');
 

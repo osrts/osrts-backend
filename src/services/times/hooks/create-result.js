@@ -6,7 +6,7 @@
 const Q = require('q');
 var moment = require('moment');
 var momentfr = require('moment/locale/fr');
-var errors = require('feathers-errors');
+var errors = require('@feathersjs/errors');
 moment.locale('fr');
 const FORMAT_TIMESTAMP = "HH:mm:ss.SSSZZ";
 
