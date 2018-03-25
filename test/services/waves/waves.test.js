@@ -7,7 +7,7 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const expect =  chai.expect;
+const expect = chai.expect;
 const io = require('socket.io-client');
 const app = require('../../../src/app');
 const User = app.service('users');
@@ -15,10 +15,10 @@ const Waves = app.service('waves');
 chai.use(chaiHttp);
 
 var token;
-const URL = "http://"+app.settings.host+":"+app.settings.port;
+const URL = 'http://' + app.settings.host + ':' + app.settings.port;
 
-const defaultWaves = [{num: 1, type: "compet", date: "15-04-2017"},
-                      {num: 2, type: "fun", date: "15-04-2017"}];
+const defaultWaves = [{ num: 1, type: 'compet', date: '15-04-2017' },
+{ num: 2, type: 'fun', date: '15-04-2017' }];
 
 describe('waves service', () => {
 
@@ -26,14 +26,14 @@ describe('waves service', () => {
     expect(app.service('waves')).to.be.ok;
   });
 
-  describe('testing with REST', () =>{
+  describe('testing with REST', () => {
 
-    before(function(done){
+    before(function (done) {
       User.create({
-         'email': 'admin@shouldexist.com',
-         'password': 'azerty9'
-      }, (err, res) => {
-        Waves.remove(null, ()=>{
+        'email': 'admin@shouldexist.com',
+        'password': 'azerty9'
+      }).then(res => {
+        Waves.remove(null).then(() => {
           done();
         });
       });
@@ -45,7 +45,7 @@ describe('waves service', () => {
 
     describe('without being authenticated', () => {
 
-      it('should not create the waves (not logged in)', (done) =>{
+      it('should not create the waves (not logged in)', (done) => {
         chai.request(URL).post('/waves')
           .set('Accept', 'application/json')
           .send(defaultWaves)
@@ -57,7 +57,7 @@ describe('waves service', () => {
           });
       });
 
-      it('should not find the waves (not logged in)', (done) =>{
+      it('should not find the waves (not logged in)', (done) => {
         chai.request(URL).get('/waves')
           .set('Accept', 'application/json')
           //when finished
@@ -68,8 +68,8 @@ describe('waves service', () => {
           });
       });
 
-      it('should not get the wave (not logged in)', (done) =>{
-        chai.request(URL).get('/waves/'+1)
+      it('should not get the wave (not logged in)', (done) => {
+        chai.request(URL).get('/waves/' + 1)
           .set('Accept', 'application/json')
           //when finished
           .end((err, res) => {
@@ -79,10 +79,10 @@ describe('waves service', () => {
           });
       });
 
-      it('should not update a wave (not logged in)', (done) =>{
-        chai.request(URL).put('/waves/'+1)
+      it('should not update a wave (not logged in)', (done) => {
+        chai.request(URL).put('/waves/' + 1)
           .set('Accept', 'application/json')
-          .send({num: 1, assigned: true})
+          .send({ num: 1, assigned: true })
           //when finished
           .end((err, res) => {
             expect(err.response.error).to.exist;
@@ -91,10 +91,10 @@ describe('waves service', () => {
           });
       });
 
-      it('should not patch a wave (not logged in)', (done) =>{
-        chai.request(URL).patch('/waves/'+1)
+      it('should not patch a wave (not logged in)', (done) => {
+        chai.request(URL).patch('/waves/' + 1)
           .set('Accept', 'application/json')
-          .send({assigned: true})
+          .send({ assigned: true })
           //when finished
           .end((err, res) => {
             expect(err.response.error).to.exist;
@@ -103,8 +103,8 @@ describe('waves service', () => {
           });
       });
 
-      it('should not delete the wave (not logged in)', (done) =>{
-        chai.request(URL).delete('/waves/'+1)
+      it('should not delete the wave (not logged in)', (done) => {
+        chai.request(URL).delete('/waves/' + 1)
           .set('Accept', 'application/json')
           //when finished
           .end((err, res) => {
@@ -115,42 +115,42 @@ describe('waves service', () => {
       });
     });
 
-/* ############################# */
-/* ####### AUTHENTICATED ####### */
-/* ############################# */
+    /* ############################# */
+    /* ####### AUTHENTICATED ####### */
+    /* ############################# */
 
     describe('with being authenticated', () => {
 
       var token;
       var waves;
 
-      before(function(done){
+      before(function (done) {
         chai.request(URL).post('/authentication')
           //set header
           .set('Accept', 'application/json')
           //send credentials
           .send({
-             'strategy': 'local',
-             'email': 'admin@shouldexist.com',
-             'password': 'azerty9'
+            'strategy': 'local',
+            'email': 'admin@shouldexist.com',
+            'password': 'azerty9'
           })
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             token = res.body.accessToken;
             done();
           });
       });
 
-      it('should create the waves', (done) =>{
+      it('should create the waves', (done) => {
         chai.request(URL).post('/waves')
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
           .send(defaultWaves)
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             expect(err).to.not.exist;
             expect(res.body).to.have.lengthOf(defaultWaves.length);
@@ -159,7 +159,7 @@ describe('waves service', () => {
           });
       });
 
-      it('should fail creating a new wave (already a wave with that num+type+date)', (done) =>{
+      it('should fail creating a new wave (already a wave with that num+type+date)', (done) => {
         chai.request(URL).post('/waves')
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
@@ -173,13 +173,13 @@ describe('waves service', () => {
       });
 
 
-      it('should find the waves', (done) =>{
+      it('should find the waves', (done) => {
         chai.request(URL).get('/waves')
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             expect(err).to.not.exist;
             expect(res.body.data).to.exist;
@@ -189,13 +189,13 @@ describe('waves service', () => {
       });
 
 
-      it('should get a wave', (done) =>{
-        chai.request(URL).get('/waves/'+waves[0]._id)
+      it('should get a wave', (done) => {
+        chai.request(URL).get('/waves/' + waves[0]._id)
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             expect(err).to.not.exist;
             expect(res.body.num).to.exist;
@@ -203,16 +203,16 @@ describe('waves service', () => {
           });
       });
 
-      it('should update a wave', (done) =>{
+      it('should update a wave', (done) => {
         var newWave = Object.assign({}, waves[0]);
-        newWave.type = "fun";
-        chai.request(URL).put('/waves/'+newWave._id)
+        newWave.type = 'fun';
+        chai.request(URL).put('/waves/' + newWave._id)
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
           .send(newWave)
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             expect(err).to.not.exist;
             expect(res.body).to.exist;
@@ -221,29 +221,29 @@ describe('waves service', () => {
           });
       });
 
-      it('should patch a wave', (done) =>{
-        chai.request(URL).patch('/waves/'+waves[1]._id)
+      it('should patch a wave', (done) => {
+        chai.request(URL).patch('/waves/' + waves[1]._id)
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
-          .send({type: "compet"})
+          .send({ type: 'compet' })
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             expect(err).to.not.exist;
             expect(res.body).to.exist;
-            expect(res.body.type).to.equal("compet");
+            expect(res.body.type).to.equal('compet');
             done();
           });
       });
 
-      it('should delete a wave', (done) =>{
-        chai.request(URL).delete('/waves/'+waves[0]._id)
+      it('should delete a wave', (done) => {
+        chai.request(URL).delete('/waves/' + waves[0]._id)
           .set('Accept', 'application/json')
           .set('Authorization', 'Bearer '.concat(token))
           //when finished
           .end((err, res) => {
-            if(err)
+            if (err)
               console.log(err.response.error);
             expect(err).to.not.exist;
             done();
@@ -256,12 +256,12 @@ describe('waves service', () => {
     });
 
 
-    after(function(done){
-       User.remove(null, () => {
-         Waves.remove(null, ()=>{
-            done();
-         });
-       });
+    after(function (done) {
+      User.remove(null).then(() => {
+        Waves.remove(null).then(() => {
+          done();
+        });
+      });
     });
 
   });

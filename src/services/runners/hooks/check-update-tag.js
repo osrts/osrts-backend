@@ -12,18 +12,18 @@ const checkAndUpdateTagHook = context => {
     const runnersService = context.app.service('/runners');
     const tagsService = context.app.service('/tags');
     var newRunner = context.data;
-    if(newRunner['tag'] && newRunner.tag && newRunner.tag.num){
+    if(newRunner.tag && newRunner.tag && newRunner.tag.num){
       // Retrieve the old runner
       runnersService.get(context.id).then((oldRunner)=>{
         // If same tag_id, nothing to do
-        if(oldRunner.tag && oldRunner.tag.num == newRunner.tag.num && oldRunner.tag.color == newRunner.tag.color){
+        if(oldRunner.tag && oldRunner.tag.num === newRunner.tag.num && oldRunner.tag.color === newRunner.tag.color){
           resolve(context);
         } else {
           tagsService.find({query: {num: newRunner.tag.num, color: newRunner.tag.color}}).then(tag=>{
-            if(tag.total!=1){
-              reject(new Error("Ce tag n'existe pas !"));
-            } else if( tag.data[0].assigned==true){
-              reject(new Error("Déjà un coureur avec ce tag !"));
+            if(tag.total !== 1){
+              reject(new Error('Ce tag n\'existe pas !'));
+            } else if( tag.data[0].assigned === true){
+              reject(new Error('Déjà un coureur avec ce tag !'));
             } else {
               if (oldRunner.tag && oldRunner.tag.num){
                 // Otherwise update the two tags
@@ -31,8 +31,8 @@ const checkAndUpdateTagHook = context => {
                 var promiseNewTag = tagsService.patch(null, {assigned: true}, {query: {num: newRunner.tag.num, color: newRunner.tag.color}});
                 Q.allSettled([promiseOldTag, promiseNewTag]).then((results)=>{
                   results.forEach(tag=>{
-                    if(tag.value.length==0){
-                      reject(new Error("Tag non trouvé"));
+                    if(tag.value.length === 0){
+                      reject(new Error('Tag non trouvé'));
                     }
                   });
                   resolve(context);

@@ -38,7 +38,7 @@ module.exports = function() {
         email: 'test@test.test',
         password: 'test'
       }).then(function(user) {
-        console.log("Created an administrator | email='test@test.test' - password='test'");
+        console.log('Created an administrator | email=\'test@test.test\' - password=\'test\'');
       }).catch(error=>{
         console.log(error);
       });

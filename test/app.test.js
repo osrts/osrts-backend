@@ -11,18 +11,16 @@ const expect =  chai.expect;
 const app = require('../src/app');
 chai.use(chaiHttp);
 
-const URL = "http://"+app.settings.host+":"+app.settings.port;
+const URL = 'http://'+app.settings.host+':'+app.settings.port;
 
 describe('Feathers application tests', () => {
-  before(function(done) {
+  before((done) => {
     this.server = app.listen(3030);
     this.server.once('listening', () => done());
   });
 
-  after(function(done) {
-    this.server.close(()=>{
-      done();
-    });
+  after((done) => {
+    this.server.close(done);
   });
 
   it('starts and shows the index page', done => {
@@ -52,7 +50,7 @@ describe('Feathers application tests', () => {
   require('./services/waves/waves.test.js');
   require('./services/checkpoints/checkpoints.test.js');
   require('./services/tags/tags.test.js');
-  //require('./services/times/times.test.js');
+  require('./services/times/times.test.js');
   require('./services/results/results.test.js');
 
 });

@@ -20,22 +20,22 @@ const checkTime = context => {
     var newTime = context.data;
     newTime.tag.num = parseInt(newTime.tag.num);
     if(!newTime.timestamp){
-      reject(new Error("No timestamp !"));
+      reject(new Error('No timestamp !'));
       return;
     }
     if(!newTime.checkpoint_id){
-      reject(new Error("No checkpoint !"));
+      reject(new Error('No checkpoint !'));
       return;
     }
-    var timePromise = timesService.find({query: {checkpoint_id: newTime.checkpoint_id, "tag.num": newTime.tag.num, "tag.color": newTime.tag.color}});
+    var timePromise = timesService.find({query: {checkpoint_id: newTime.checkpoint_id, 'tag.num': newTime.tag.num, 'tag.color': newTime.tag.color}});
     var tagPromise = tagsService.find({query: {num: newTime.tag.num, color: newTime.tag.color}});
     Q.allSettled([timePromise, tagPromise]).then(results=>{
-      if(results[0].value.total!=0){
+      if(results[0].value.total !== 0){
         reject(new errors.Conflict('This tag has already a time at that checkpoint.'));
-      } else if(results[1].value.total!=1){
+      } else if(results[1].value.total !== 1){
         reject(new errors.NotFound('Tag does not exist.'));
-      } else if(results[1].value.data[0].assigned==false){
-        reject(new errors.NotAcceptable("Tag is not assigned."));
+      } else if(results[1].value.data[0].assigned === false){
+        reject(new errors.NotAcceptable('Tag is not assigned.'));
       } else {
         delete context.data.email;
         delete context.data.password;
@@ -44,7 +44,7 @@ const checkTime = context => {
         resolve(context);
       }
     }).catch((err)=>{
-        console.log("Error in Q.allSettled");
+        console.log('Error in Q.allSettled');
         console.log(err.message);
     });
   });

@@ -26,11 +26,11 @@ module.exports = function () {
     var options = app.get('auth');
     jwt.verify(req.headers.authentification, options.secret, options, function (error, payload) {
       if (error) {
-        console.error("user not authenticated");
+        console.error('user not authenticated');
         res.status(500).send('User not authenticated!');
       } else {
         // User is logged on in the application.
-        console.log("User is authenticated");
+        console.log('User is authenticated');
         next();
       }
     });
@@ -87,8 +87,8 @@ module.exports = function () {
             if (!(item.wave_id in data[item.date])) {
               data[item.date][item.wave_id] = {};
             }
-            data[item.date][item.wave_id][item._id] = item
-          })
+            data[item.date][item.wave_id][item._id] = item;
+          });
           // Render EJS template with the data and save it to html var
           var html = ejs.render(str, {
             runners: data
@@ -100,7 +100,7 @@ module.exports = function () {
           page.render(path.join(__dirname, 'page.pdf')).then((data) => {
             phInstance.exit();
             var stream = fs.createReadStream(path.join(__dirname, 'page.pdf'));
-            var filename = "page.pdf";
+            var filename = 'page.pdf';
             // Prepare the response and sand it to the client
             filename = encodeURIComponent(filename);
             res.setHeader('Content-disposition', 'inline; filename="' + filename + '"');

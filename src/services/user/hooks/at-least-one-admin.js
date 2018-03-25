@@ -11,10 +11,12 @@ const checkAtLeastOneAdmin = context => {
   return new Promise((resolve, reject) => {
     const usersService = context.service;
     usersService.find({}).then(users=>{
-      if(users.total==1)
+      if(users.total === 1) {
         reject();
-      else
-        resolve(context);
+        return;
+      }
+      resolve(context);
+      return;
     });
   });
 };

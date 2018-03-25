@@ -23,7 +23,7 @@ module.exports = function() {
   const app = this;
 
   mongoose.Promise = global.Promise;
-  mongoose.connect(app.get('mongodb'));
+  mongoose.connect(app.get('mongodb'), { useMongoClient: true });
 
   app.configure(authentication);
   app.configure(user);

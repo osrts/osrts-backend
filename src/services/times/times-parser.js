@@ -7,7 +7,7 @@
 
 const Q = require('q');
 const auth = require('@feathersjs/authentication');
-var csv = require("fast-csv");
+var csv = require('fast-csv');
 
 module.exports = function () {
   const app = this;
@@ -20,16 +20,18 @@ module.exports = function () {
       this.nbSteps = 0;
     }
 
-    create(data, params, callback) {
+    create(dataCreate, params, callback) {
       // Reading txt
-      var data = new Uint8Array(data);
-      var arr = new Array();
-      for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-      var bstr = arr.join("");
+      var data = new Uint8Array(dataCreate);
+      var arr = [];
+      for (var i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      var bstr = arr.join('');
 
       // Define the step and nbSteps to show some progression on the frontend
       this.step = 0;
-      this.nbSteps = bstr.split("\n").length;
+      this.nbSteps = bstr.split('\n').length;
 
       // Return the request to say that it is successfully processing the excel
       callback(null, {
@@ -39,8 +41,8 @@ module.exports = function () {
       // Precise the current status
       this.incrementAndEmitStatus();
 
-      var times = []
-      var csvStream = csv.fromString(bstr).on("data", (data) => {
+      var times = [];
+      var csvStream = csv.fromString(bstr).on('data', (data) => {
         var time = {
           checkpoint_id: data[0],
           tag: {
@@ -50,25 +52,24 @@ module.exports = function () {
           timestamp: data[3]
         };
 
-        times.push(time)
-      })
-        .on("end", () => {
+        times.push(time);
+      }).on('end', () => {
 
-          // Sequential creation to avoid integrity errors
-          var promise = Promise.resolve(null);
-          times.forEach((value) => {
-            console.log(value);
-            promise = promise.then(() => {
-              return timesService.create(value);
-            }).then(() => {
-              console.log("Success");
-              this.incrementAndEmitStatus()
-            }).catch((err) => {
-              console.log("Error : " + err.message);
-              this.incrementAndEmitStatus()
-            });
-          })
+        // Sequential creation to avoid integrity errors
+        var promise = Promise.resolve(null);
+        times.forEach((value) => {
+          console.log(value);
+          promise = promise.then(() => {
+            return timesService.create(value);
+          }).then(() => {
+            console.log('Success');
+            this.incrementAndEmitStatus();
+          }).catch((err) => {
+            console.log('Error : ' + err.message);
+            this.incrementAndEmitStatus();
+          });
         });
+      });
     }
     // END OF PARSING
     incrementAndEmitStatus() {

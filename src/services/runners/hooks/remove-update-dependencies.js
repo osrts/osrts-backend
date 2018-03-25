@@ -29,9 +29,9 @@ const updateDependencies = context => {
     arrayPromises.push(promiseWave);
 
     // Update the race
-    var key = "counts."+oldRunner.date;
+    var key = 'counts.'+oldRunner.date;
     var counts = {'$inc': {}};
-    counts['$inc'][key] = -1;
+    counts.$inc[key] = -1;
     var promiseRace = raceService.patch(null, counts);
     arrayPromises.push(promiseRace);
 

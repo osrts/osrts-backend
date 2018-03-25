@@ -31,13 +31,15 @@ module.exports = function () {
       this.nbSteps = 0;
     }
 
-    create(data, params, callback) {
+    create(dataHook, params, callback) {
       // Reading excel
-      var data = new Uint8Array(data);
-      var arr = new Array();
-      for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
-      var bstr = arr.join("");
-      var excel = XLSX.read(bstr, { type: "binary" });
+      var data = new Uint8Array(dataHook);
+      var arr = [];
+      for (var i = 0; i !== data.length; ++i) {
+        arr[i] = String.fromCharCode(data[i]);
+      }
+      var bstr = arr.join('');
+      var excel = XLSX.read(bstr, { type: 'binary' });
 
       // Define the step and nbSteps to show some progression on the frontend
       this.step = 0;
@@ -59,26 +61,30 @@ module.exports = function () {
           var countByDays = {};
 
           excel.SheetNames.forEach(sheet_name => {
-            var worksheet = excel.Sheets[sheet_name]
-            var day = sheet_name.split(" ")[0];
-            var type = sheet_name.split(" ")[1].toLowerCase();
+            var worksheet = excel.Sheets[sheet_name];
+            var day = sheet_name.split(' ')[0];
+            var type = sheet_name.split(' ')[1].toLowerCase();
 
             // Getting the date
-            var date = moment(worksheet['A1'].v, 'dddd DD MMM');
-            var dateString = date.format("DD-MM-YYYY");
+            var date = moment(worksheet.A1.v, 'dddd DD MMM');
+            var dateString = date.format('DD-MM-YYYY');
             var newRunners = [];
             var dict = {};
             this.incrementAndEmitStatus();
 
             for (var z in worksheet) {
 
-              /* all keys that do not begin with "!" correspond to cell addresses */
-              if (z[0] === '!') continue;
+              /* all keys that do not begin with '!' correspond to cell addresses */
+              if (z[0] === '!') {
+                continue;
+              }
 
               var column = z[0];
               var row = z.slice(1);
 
-              if (row == 1 || row == 2) continue;
+              if (row === 1 || row === 2) {
+                continue;
+              }
 
               if (!(row in dict)) {
                 dict[row] = {};
@@ -91,28 +97,31 @@ module.exports = function () {
               if (dict.hasOwnProperty(key)) {
                 var value = dict[key];
                 // If no name, don't take the row
-                if (!value["G"]) return;
+                if (!value.G) {
+                  return;
+                }
                 // Runner
                 var runner = {
-                  'tag_id': value["C"] ? parseInt(value["C"]) : -1,
-                  'team_id': value["D"] ? parseInt(value["D"]) : -1,
-                  'name': value["G"] ? this.normalizeName(value["G"]) : '',
-                  'gender': value["H"] ? value["H"] : '',
-                  'age': value["I"] ? parseInt(value["I"]) : '',
-                  'team_name': value["J"] ? value["J"] : '',
-                  'wave_id': value["K"] ? parseInt(value["K"]) : -1,
+                  'tag_id': value.C ? parseInt(value.C) : -1,
+                  'team_id': value.D ? parseInt(value.D) : -1,
+                  'name': value.G ? this.normalizeName(value.G) : '',
+                  'gender': value.H ? value.H : '',
+                  'age': value.I ? parseInt(value.I) : '',
+                  'team_name': value.J ? value.J : '',
+                  'wave_id': value.K ? parseInt(value.K) : -1,
                   'date': dateString,
                   'type': type
                 };
                 newRunners.push(runner);
                 // Wave
-                if (runner['wave_id'] != -1) {
-                  if (!waves[type + " " + runner['wave_id'] + " " + dateString]) {
-                    waves[type + " " + runner['wave_id'] + " " + dateString] = { 'type': type, 'num': runner['wave_id'], 'date': dateString, 'count': 1 };
-                    if (type == PRO_WAVE_NAME)
-                      waves[type + " " + runner['wave_id'] + " " + dateString].chrono = true;
+                if (runner.wave_id !== -1) {
+                  if (!waves[type + ' ' + runner.wave_id + ' ' + dateString]) {
+                    waves[type + ' ' + runner.wave_id + ' ' + dateString] = { 'type': type, 'num': runner.wave_id, 'date': dateString, 'count': 1 };
+                    if (type === PRO_WAVE_NAME) {
+                      waves[type + ' ' + runner.wave_id + ' ' + dateString].chrono = true;
+                    }
                   } else {
-                    waves[type + " " + runner['wave_id'] + " " + dateString].count++;
+                    waves[type + ' ' + runner.wave_id + ' ' + dateString].count++;
                   }
                 }
                 // Race
@@ -153,10 +162,10 @@ module.exports = function () {
           });
           promiseArray.push(racePromise);
 
-          // Wait that all the "create" are finished
+          // Wait that all the 'create' are finished
           Q.allSettled(promiseArray).then((results) => {
             results.forEach(function (result) {
-              if (result.state === "fulfilled") {
+              if (result.state === 'fulfilled') {
                 var value = result.value;
               } else {
                 var reason = result.reason;
@@ -173,9 +182,9 @@ module.exports = function () {
 
     normalizeName(name) {
       name = name.trim();
-      var newName = "";
-      name.split(" ").forEach(part => {
-        newName = newName + part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase() + " ";
+      var newName = '';
+      name.split(' ').forEach(part => {
+        newName = newName + part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase() + ' ';
       });
       return newName.trim();
     }

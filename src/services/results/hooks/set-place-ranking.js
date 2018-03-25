@@ -15,7 +15,7 @@ const setPlaceRanking = context => {
     if(newResult.times['99']){
       var momentTime = moment(newResult.times['99'].time);
       // Retrieve the results that have a time greater than the one that we want to add.
-      var promiseTimes = resultsService.find({paginate:false, query: {date: newResult.date, $sort: {"times.99.time": 1}}});
+      var promiseTimes = resultsService.find({paginate:false, query: {date: newResult.date, $sort: {'times.99.time': 1}}});
       promiseTimes.then(dataResults=>{
         if(dataResults.length>0){
           var index=0;

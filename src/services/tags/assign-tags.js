@@ -68,17 +68,17 @@ module.exports = function () {
         while (indexTags < tags.length && indexRunners < runners.length) {
           var tag = tags[indexTags];
           var runner = runners[indexRunners];
-          if ((tag.color == currentColor && runner.date != currentDate && !onePassDone) || (tag.assigned && onePassDone)) {
+          if ((tag.color === currentColor && runner.date !== currentDate && !onePassDone) || (tag.assigned && onePassDone)) {
             indexTags++;
             continue;
-          } else if (tag.color != currentColor && runner.date != currentDate) {
+          } else if (tag.color !== currentColor && runner.date !== currentDate) {
             currentColor = tag.color;
             currentDate = runner.date;
           }
           tag.assigned = true;
-          tagsService.update(tag._id, tag).then(data => { }).catch(error => { console.log(error) });
+          tagsService.update(tag._id, tag).then(data => { }).catch(error => { console.log(error); });
           runner.tag = { num: tag.num, color: tag.color };
-          runnersService.update(runner._id, runner).then(data => { }).catch(error => { console.log(error) });
+          runnersService.update(runner._id, runner).then(data => { }).catch(error => { console.log(error); });
           indexTags++;
           indexRunners++;
           if (indexTags === tags.length && !onePassDone) {

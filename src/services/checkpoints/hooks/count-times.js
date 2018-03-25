@@ -18,8 +18,8 @@ const countTimes = context => {
           query: {
             checkpoint_id: item.num,
             timestamp: {
-              "$gte": moment().startOf('day'),
-              "$lt": moment().add(1, 'days').startOf('day')
+              '$gte': moment().startOf('day'),
+              '$lt': moment().add(1, 'days').startOf('day')
             }
           }
         }).then(data => {
@@ -31,8 +31,8 @@ const countTimes = context => {
         query: {
           checkpoint_id: context.result.num,
           timestamp: {
-            "$gte": moment().startOf('day'),
-            "$lt": moment().add(1, 'days').startOf('day')
+            '$gte': moment().startOf('day'),
+            '$lt': moment().add(1, 'days').startOf('day')
           }
         }
       }).then(data => {
