@@ -30,7 +30,6 @@ module.exports = function () {
         res.status(500).send('User not authenticated!');
       } else {
         // User is logged on in the application.
-        console.log('User is authenticated');
         next();
       }
     });
