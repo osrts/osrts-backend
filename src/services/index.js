@@ -10,6 +10,7 @@ const runners = require('./runners');
 const excelParser = require('./runners/excel-parser');
 const timesParser = require('./times/times-parser');
 const generatorPDF = require('./runners/generator-pdf');
+const generatorXLSX = require('./runners/generator-excel');
 const times = require('./times');
 const checkpoints = require('./checkpoints');
 const waves = require('./waves');
@@ -22,8 +23,8 @@ const mongoose = require('mongoose');
 module.exports = function() {
   const app = this;
 
-  mongoose.connect(app.get('mongodb'));
   mongoose.Promise = global.Promise;
+  mongoose.connect(app.get('mongodb'), { useMongoClient: true });
 
   app.configure(authentication);
   app.configure(user);
@@ -37,5 +38,6 @@ module.exports = function() {
   app.configure(excelParser);
   app.configure(timesParser);
   app.configure(generatorPDF);
+  app.configure(generatorXLSX);
   app.configure(assignTags);
 };

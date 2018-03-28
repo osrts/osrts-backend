@@ -9,7 +9,7 @@ const service = require('feathers-mongoose');
 const time = require('./time-model');
 const hooks = require('./hooks');
 
-module.exports = function() {
+module.exports = function () {
   const app = this;
 
   const options = {
@@ -37,8 +37,5 @@ module.exports = function() {
   });*/
 
   // Set up our before hooks
-  timesService.before(hooks.before);
-
-  // Set up our after hooks
-  timesService.after(hooks.after);
+  timesService.hooks(hooks);
 };

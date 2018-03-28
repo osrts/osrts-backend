@@ -28,8 +28,5 @@ module.exports = function() {
   const wavesService = app.service('/waves');
 
   // Set up our before hooks
-  wavesService.before(hooks.before);
-
-  // Set up our after hooks
-  wavesService.after(hooks.after);
+  wavesService.hooks(hooks);
 };

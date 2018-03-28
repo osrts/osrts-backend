@@ -28,8 +28,5 @@ module.exports = function() {
   const checkpointsService = app.service('/checkpoints');
 
   // Set up our before hooks
-  checkpointsService.before(hooks.before);
-
-  // Set up our after hooks
-  checkpointsService.after(hooks.after);
+  checkpointsService.hooks(hooks);
 };

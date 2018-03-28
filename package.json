@@ -15,11 +15,20 @@
   ],
   "scripts": {
     "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "npm run jshint && npm run mocha",
     "jshint": "jshint src/. test/. --config",
     "mocha": "mocha test/"
   },
   "dependencies": {
+    "@feathersjs/authentication": "^2.1.1",
+    "@feathersjs/authentication-jwt": "^2.0.0",
+    "@feathersjs/authentication-local": "^1.1.0",
+    "@feathersjs/configuration": "^1.0.2",
+    "@feathersjs/errors": "^3.2.2",
+    "@feathersjs/express": "^1.2.0",
+    "@feathersjs/feathers": "^3.1.2",
+    "@feathersjs/socketio": "^3.2.0",
     "async": "^2.5.0",
     "body-parser": "^1.17.2",
     "compression": "^1.7.0",
@@ -28,18 +37,9 @@
     "express-brute": "^1.0.1",
     "express-brute-mongoose": "0.0.9",
     "fast-csv": "^2.4.0",
-    "feathers": "^2.1.7",
-    "feathers-authentication": "^1.2.7",
-    "feathers-authentication-jwt": "^0.3.2",
-    "feathers-authentication-local": "^0.4.3",
-    "feathers-configuration": "^0.4.1",
-    "feathers-errors": "^2.9.1",
-    "feathers-hooks": "^2.0.2",
     "feathers-hooks-common": "^3.6.1",
     "feathers-mongoose": "^5.1.1",
     "feathers-permissions": "^0.1.1",
-    "feathers-rest": "^1.8.0",
-    "feathers-socketio": "^2.0.0",
     "jsonwebtoken": "^7.4.2",
     "jws": "^3.1.4",
     "memory-cache": "^0.2.0",
@@ -47,13 +47,19 @@
     "mongoose": "^4.11.5",
     "phantom": "^4.0.5",
     "q": "^1.5.0",
-    "xlsx": "^0.10.9"
+    "winston": "^2.4.0",
+    "xlsx": "^0.12.6"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "chai": "^4.1.1",
     "chai-http": "^3.0.0",
+    "eslint": "^4.17.0",
     "jshint": "^2.9.5",
     "mocha": "^3.5.0",
+    "nodemon": "^1.15.1",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
     "socket.io-client": "^2.0.3"
   }
 }

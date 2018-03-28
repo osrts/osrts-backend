@@ -6,8 +6,7 @@
 'use strict';
 
 const globalHooks = require('../../../hooks');
-const hooks = require('feathers-hooks');
-const auth = require('feathers-authentication');
+const auth = require('@feathersjs/authentication');
 const countTimes = require('./count-times');
 
 exports.before = {
@@ -22,10 +21,10 @@ exports.before = {
 
 exports.after = {
   all: [],
-  find: [countTimes()],
+  find: [countTimes],
   get: [],
   create: [],
   update: [],
-  patch: [countTimes()],
+  patch: [countTimes],
   remove: []
 };
