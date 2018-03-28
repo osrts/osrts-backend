@@ -50,7 +50,7 @@ module.exports = function () {
           arrayNums.push(wave.num);
         });
         // We query the runners here so that we only get the runners inside waves that have "chrono" equals to true
-        var promiseRunners = runnersModel.find({ wave_id: { $in: arrayNums } }).sort({ date: 1, wave_id: 1, team_name: 1 });
+        var promiseRunners = runnersModel.find({ wave_id: { $in: arrayNums } }).sort({ date: 1, wave_id: 1, team_name: 1, name: 1 });
         promiseRunners.then((runnersRetrieved) => {
           runners = runnersRetrieved;
           deferred.resolve(runners);
