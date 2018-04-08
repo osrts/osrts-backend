@@ -57,7 +57,7 @@
     "eslint": "^4.17.0",
     "jshint": "^2.9.5",
     "mocha": "^3.5.0",
-    "nodemon": "^1.15.1",
+    "nodemon": "^1.17.3",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
     "socket.io-client": "^2.0.3"

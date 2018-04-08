@@ -45,7 +45,7 @@ module.exports = function () {
     _.each(dataSorted, (mapWaves, date) => {
       const dataFormatted = generateFormattedData(date, mapWaves); 
       const ws = XLSX.utils.aoa_to_sheet(dataFormatted);
-      ws['!cols'] = [{ width: 10 }, { width: 12 }, { width: 30 }, { width: 30 }, { width: 10 }];
+      ws['!cols'] = [{ width: 10 }, { width: 12 }, { width: 30 }, { width: 30 }, { width: 14 }];
       /* add worksheet to workbook */
       XLSX.utils.book_append_sheet(wb, ws, date);
     });
@@ -87,11 +87,12 @@ module.exports = function () {
 
   function generateFormattedData(date, mapWaves) {
     const data = [];
-    data.push([new Date(date)]);
+    data.push([date]);
     data.push(['Vague', 'Type', 'Team', 'Nom', 'Tag']);
     _.each(mapWaves, (mapRunners, waveId) => {
       _.each(mapRunners, (runner, runnerId) => {
-        data.push([runner.wave_id, runner.type, runner.team_name, runner.name, runner.tag]);
+        const tagString = runner.tag ? `${runner.tag.color} - ${runner.tag.num}` : '';
+        data.push([runner.wave_id, runner.type, runner.team_name, runner.name, tagString]);
       });
     });
   return data;
